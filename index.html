@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Stream</title>
+</head>
+<body>
+    <h1>Screen Stream</h1>
+    <img id="screen" src="" alt="Screen Stream" width="800" />
+    <script>
+        const ws = new WebSocket("ws://10.20.37.18:8000/ws");
+
+        ws.onmessage = function(event) {
+            const imgElement = document.getElementById("screen");
+            imgElement.src = "data:image/jpeg;base64," + event.data;
+        };
+
+        ws.onclose = function(event) {
+            console.log("WebSocket connection closed:", event);
+        };
+    </script>
+</body>
+</html>
